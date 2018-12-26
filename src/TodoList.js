@@ -4,25 +4,48 @@ import {connect} from 'react-redux';
 
 class TodoList extends Component {
   render() {
+    const {
+      decrement,
+      increment,
+      count,
+      handlerInputChange,
+      inputValue,
+      submit,
+      list,
+      deleteItem
+    } = this.props;
+
     return (
         <div>
           <div>
-            <button onClick={this.props.decrement}>-</button>
-            <span>{this.props.count}</span>
-            <button onClick={this.props.increment}>+</button>
+            <button onClick={decrement}>-</button>
+            <span>{count}</span>
+            <button onClick={increment}>+</button>
           </div>
           <div>
             <input
-                onChange={this.props.handlerInputChange}
-                value={this.props.inputValue} type="text"
+                onChange={handlerInputChange}
+                value={inputValue} type="text"
             />
-            <button>提交</button>
+            <button onClick={this.handlerBtnClick}>提交</button>
           </div>
           <ul>
-            <li>Hello</li>
+            {list.map((item, index) => (
+                <li
+                    key={index}
+                    onClick={() => {deleteItem(index)}}
+                >{item}</li>
+            ))}
           </ul>
         </div>
     )
+  }
+
+  handlerBtnClick = () => {
+    if (!this.props.inputValue) {
+      return;
+    }
+    this.props.submit();
   }
 }
 
@@ -45,6 +68,19 @@ const mapDispatchToProps = (dispatch) => ({
     const action = {
       type: 'INPUT_VALUE_CHANGE',
       value: ev.target.value
+    };
+    dispatch(action);
+  },
+  submit () {
+    const action = {
+      type: 'SUBMIT'
+    };
+    dispatch(action);
+  },
+  deleteItem (index) {
+    const action = {
+      type: 'DELETE_ITEM',
+      index
     };
     dispatch(action);
   }
