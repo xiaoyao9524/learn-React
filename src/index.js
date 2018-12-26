@@ -1,71 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-
-import 'antd/dist/antd.css';
-
+import TodoList from './TodoList';
+import { Provider } from 'react-redux';
 import store from './store';
-import {
-  changeInputValue,
-  submit,
-  deleteItem,
-  initListAction
-} from './store/actionCreators';
-import TodoListUI from "./TodoListUI";
 
-class TodoList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = store.getState();
-    // 可以手动订阅更新，也可以事件绑定到视图层。
-    store.subscribe(() => {
-      this.upDateState();
-    });
-  };
+const App = (
+    <Provider store={store}>
+      <TodoList/>
+    </Provider>
+);
 
-  initList = (list) => {
-    const action = initListAction(list);
-    store.dispatch(action);
-  };
-
-  upDateState = () => {
-    this.setState(store.getState());
-  };
-
-  handlerChange = (ev) => {
-    const action = changeInputValue(ev.target.value);
-    store.dispatch(action);
-  };
-
-  handlerClick = () => {
-    if (!this.state.inputValue) {
-      return;
-    }
-    const action = submit();
-    store.dispatch(action);
-  };
-
-  deleteItem = (index) => {
-    const action = deleteItem(index);
-    store.dispatch(action);
-  };
-
-  componentDidMount = () => {
-    store.dispatch({
-      type: 'WILL_GET_INIT_LIST'
-    })
-  };
-
-  render() {
-    return (
-        <TodoListUI
-            handlerChange={this.handlerChange}
-            inputValue={this.state.inputValue}
-            handlerClick={this.handlerClick}
-            list={this.state.list}
-            deleteItem={this.deleteItem}
-        />
-    )
-  }
-}
-
-ReactDOM.render(<TodoList/>, document.getElementById('root'));
+ReactDOM.render(App, document.getElementById('root'));

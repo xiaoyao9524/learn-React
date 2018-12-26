@@ -1,30 +1,23 @@
 const defaultState = {
-  inputValue: 'hello world',
+  count: 0,
+  inputValue: 'hello World',
   list: []
 };
 
 export default (state = defaultState, action) => {
   console.log('action: ', action);
-  let newState = JSON.parse(JSON.stringify(state));
-  let newList = newState.list;
-  switch (action.type) {
-    case 'CHANGE_INPUT_VALUE':
-      newState.inputValue = action.value;
-      return newState;
-    case 'SUBMIT':
-      newState.list = [...newList, newState.inputValue];
-      newState.inputValue = '';
-      return newState;
-    case 'DELETE_ITEM':
-      newList.splice(action.index, 1);
-      return newState;
-    case 'INIT_LIST_ACTION':
-      newState.list = action.list;
-      return newState;
-    case 'GET_INIT_LIST':
-      newState.list = action.list;
-      return newState;
-    default:
-      return newState;
+  let newState = {...state};
+  if (action.type === 'INCREMENT') {
+    newState.count++;
+    return newState;
   }
+  if (action.type === 'DECREMENT') {
+    newState.count--;
+    return newState;
+  }
+  if (action.type === 'INPUT_VALUE_CHANGE') {
+    newState.inputValue = action.value;
+    return newState;
+  }
+  return newState;
 };

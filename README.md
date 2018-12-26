@@ -1,4 +1,1 @@
-### master: 
-    redux-thunk-demo
-### redux-saga:
-    redux-saga-demo
+### 此分支为react-redux DEMO
