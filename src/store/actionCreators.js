@@ -2,9 +2,9 @@ import {
   CHANGE_INPUT_VALUE,
   SUBMIT,
   DELETE_ITEM,
-  INIT_LIST_ACTION
+  INIT_LIST_ACTION,
+  GET_INIT_LIST
 } from './actionTypes';
-import axios from "axios";
 
 export const changeInputValue = (value) => (
     {
@@ -33,13 +33,7 @@ export const initListAction = (list) => {
   }
 };
 
-// 使用redux-thunk来处理异步操作：
-export const getToduList = () => {
-  return (dispatch) => {
-    axios.get('/index/recommend.json')
-        .then((res) => {
-          const action = initListAction(res.data.list.map(item => item.title));
-          dispatch(action);
-        })
-  }
-};
+export const getInitList = (list) => ({
+  type: GET_INIT_LIST,
+  list
+});

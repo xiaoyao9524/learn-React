@@ -21,6 +21,9 @@ export default (state = defaultState, action) => {
     case 'INIT_LIST_ACTION':
       newState.list = action.list;
       return newState;
+    case 'GET_INIT_LIST':
+      newState.list = action.list;
+      return newState;
     default:
       return newState;
   }

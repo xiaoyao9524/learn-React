@@ -8,8 +8,7 @@ import {
   changeInputValue,
   submit,
   deleteItem,
-  initListAction,
-  getToduList
+  initListAction
 } from './store/actionCreators';
 import TodoListUI from "./TodoListUI";
 
@@ -51,8 +50,9 @@ class TodoList extends Component {
   };
 
   componentDidMount = () => {
-    const action = getToduList();
-    store.dispatch(action);
+    store.dispatch({
+      type: 'WILL_GET_INIT_LIST'
+    })
   };
 
   render() {
