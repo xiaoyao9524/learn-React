@@ -10,7 +10,6 @@ class TodoList extends Component {
       count,
       handlerInputChange,
       inputValue,
-      submit,
       list,
       deleteItem
     } = this.props;
