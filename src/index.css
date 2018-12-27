@@ -1,0 +1,7 @@
+a, a:link, a:hover, a:visited {
+  color: #4095bf;
+  text-decoration: none;
+}
+a:active {
+  color: #e94949;
+}
