@@ -1,32 +1,60 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+
 import {
-  BrowserRouter,
+  BrowserRouter as Router,
   Route,
-  Link
+  NavLink
 } from 'react-router-dom';
 
-const Home = () => <div>首页</div>;
-const About = () => <div>关于</div>;
-const Theme = () => <div>主题列表</div>;
+import catalog from './catalog';
 
-const App = (
-    <BrowserRouter>
-      <div>
-        <ul>
-          <li><Link to={'/'}>首页</Link></li>
-          <li><Link to={'/about'}>关于</Link></li>
-          <li><Link to={'/theme'}>主题列表</Link></li>
-        </ul>
-
-        <hr/>
-
-        <Route exact path={'/'} component={Home}/>
-        <Route path={'/about'} component={About}/>
-        <Route path={'/theme'} component={Theme}/>
-      </div>
-    </BrowserRouter>
+const Test1 = (
+    <div>
+      <p>直接定义组件</p>
+    </div>
 );
 
-ReactDOM.render(App, document.getElementById('root'));
+const Test2 = () => (
+    <div>
+      <p>函数定义组件</p>
+    </div>
+);
+
+class Test3 extends React.Component {
+  render () {
+    return (
+        <div>
+          <p>class定义组件</p>
+        </div>
+    )
+  }
+}
+
+const App = () => {
+  const links = catalog.map(item => <li key={item.path}><NavLink to={item.path} exact={item.path === '/'}>{item.title}</NavLink></li>);
+  const routes = catalog.map(item => <Route key={item.path} exact={item.path === '/'} path={item.path} component={item.component}/>);
+
+  return (
+      <Router>
+        <div>
+          <div style={{width: '300px', float: 'left'}}>
+            <h3>目录：</h3>
+            <ul>{links}</ul>
+          </div>
+          <div style={{float: 'left'}}>
+            {routes}
+          </div>
+          <div>
+            <h3>试验区：</h3>
+            {Test1}
+            <Test2/>
+            <Test3/>
+          </div>
+        </div>
+      </Router>
+  )
+};
+
+ReactDOM.render(<App/>, document.getElementById('root'));
