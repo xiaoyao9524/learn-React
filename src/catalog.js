@@ -3,6 +3,7 @@ import BaseUser from './Chapter1-1';
 import URLParams from './Chapter1-2';
 import AuthExample from './Chapter1-3';
 import CustomLinkExample from './Chapter1-4';
+import PreventingTransitionsExample from './Chapter1-5';
 
 export default [
   {
@@ -24,5 +25,10 @@ export default [
     path: '/customLinkExample',
     title: '自定义链接',
     component: CustomLinkExample
+  },
+  {
+    path: '/preventingTransitionsExample',
+    title: '阻止导航',
+    component: PreventingTransitionsExample
   }
 ]
